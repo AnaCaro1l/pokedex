@@ -1,0 +1,69 @@
+<!-- Header -->
+<poke-header></poke-header>
+
+<main class="mt-10 sm:mt-16">
+
+  <ng-template [ngIf]="isLoading">
+    <!-- Nomes -->
+    <section
+      class="relative flex items-end justify-end h-[75px] px-8"
+    >
+      <h1
+        class="text-white text-2xl sm:text-3xl capitalize z-10"
+      >
+        {{ pokemon[0].name }}
+      </h1>
+      <h2
+        class="absolute top-0 text-[60px] sm:text-[60px] font-thin text-white/10"
+      >
+        {{ pokemon[1].names[0].name }}
+      </h2>
+    </section>
+
+    <!-- Status -->
+    <section class="relative">
+      <img
+        [src]="pokemon[0].sprites.other.dream_world.front_default"
+        [alt]="pokemon[0].name"
+        class="absolute top-[-90px] left-8 max-w-[130px] z-10"
+      >
+
+      <article
+        class="flex flex-col justify-between bg-white rounded-t-[50px] min-h-[43.9vh] mt-2 px-9 pt-[110px] pb-8"
+      >
+        <section>
+          <h3
+            class="mb-5 text-2xl italic font-bold underline text-blue-600"
+          >
+            Estatísticas
+          </h3>
+
+          <ol class="flex flex-col gap-4 ">
+            <li
+              *ngFor="let value of pokemon[0].stats"
+              class="flex justify-between bg-gray-200 rounded-full px-4 py-1 text-base"
+            >
+              {{ value.stat.name }}
+              <strong>{{ value.base_stat }}</strong>
+            </li>
+          </ol>
+        </section>
+
+        <a
+          [routerLink]="['']"
+          class="inline-block bg-blue-100 text-blue-600 px-7 py-5 mt-10.5 rounded-full text-sm font-semibold hover:bg-blue-200 transition"
+        >
+          Voltar
+        </a>
+      </article>
+    </section>
+  </ng-template>
+
+  <!-- Erro -->
+  <img
+    src="assets/error.png"
+    alt="Deu erro na mostragem do pokemon"
+    class="w-full"
+    *ngIf="apiError"
+  >
+</main>

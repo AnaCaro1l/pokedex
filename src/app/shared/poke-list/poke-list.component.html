@@ -1,0 +1,48 @@
+<poke-search (emmitSearch)="getSearch($event)"></poke-search>
+
+<section
+  class="w-full flex flex-wrap justify-between gap-4 py-5"
+>
+  <ng-template ngFor let-pokemon [ngForOf]="getAllPokemons">
+    <a
+      *ngIf="pokemon.status"
+      [routerLink]="['/details', pokemon.status.id]"
+      class="flex relative w-[calc(50%-0.625rem)] bg-white rounded-xl p-5 shadow-md hover:shadow-lg transition"
+    >
+      <!-- Informações do Pokémon -->
+      <section>
+        <h2 class="text-xl italic font-bold capitalize mb-3">
+          {{ pokemon.name }}
+        </h2>
+        <ul class="flex flex-col gap-2">
+          <li
+            *ngFor="let value of pokemon.status.types"
+            class="bg-gray-200 text-xs rounded-full px-4 py-1 text-center"
+          >
+            {{ value.type.name }}
+          </li>
+        </ul>
+      </section>
+
+      <!-- Imagem do Pokémon -->
+      <section
+        class="absolute flex items-center justify-center w-28 h-24 right-5 bottom-5 bg-no-repeat"
+        style="background-image: url('../../../assets/bg/background-list-pokemons.svg')"
+      >
+        <img
+          [src]="pokemon.status.sprites.other.dream_world.front_default"
+          [alt]="pokemon.name"
+          class="w-16"
+        />
+      </section>
+    </a>
+  </ng-template>
+</section>
+
+<!-- Erro -->
+<img
+  src="assets/error.png"
+  alt="Deu erro na mostragem do pokemon"
+  class="w-full"
+  *ngIf="apiError"
+/>
